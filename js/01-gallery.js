@@ -9,12 +9,11 @@ const cardsMarkup = createCards(galleryItems);
 console.log(cardsMarkup);
 
 paletteContainer.insertAdjacentHTML('afterbegin', cardsMarkup);
+paletteContainer.addEventListener('click', onClick);
 
-paletteContainer.addEventListener('click')
-
-function onContainerClick(evt) {
-    console.log(evt.target)
-}
+// function onContainerClick(evt) {
+//   console.log(evt.target);
+// }
 
 function createCards(galleryItems) {
   return galleryItems
@@ -33,6 +32,42 @@ function createCards(galleryItems) {
     .join('');
 }
 
+function onClick(evnt) {
+  console.log(evt.target);
+  evnt.preventDefault();
+  if (evnt.target.nodeName !== 'IMG') return;
+
+  const thisImg = evnt.target.classList.contains('.gallery__image');
+  if (!thisImg) return;
+
+  const currentImgUrl = e.target.dataset.source;
+}
+
+// const instance = basicLightbox.create(
+//   `
+// 		<img src="${original}" width="1280" height="auto"/>
+//         `
+//   {
+//     onShow: instance => {
+//       window.addEventListener('keydown', onEscPress);
+//     },
+//     onClose: instance => {
+//       window.removeEventListener('keydown', onEscPress);
+//     },
+//   }
+// );
+
+// instance.show();
+
+// function onEscPress(evnt) {
+//   const ESC_KEY = 'Escape';
+//   const isEscKey = evnt.code === ESC_KEY;
+//   if (!isEscKey) return;
+//   instance.close();
+// }
+// }
+
+// }
 // ++++++++++++++++++++++++++++++++++++++++=
 
 // const x1 = document.querySelector('.');
@@ -59,3 +94,13 @@ function createCards(galleryItems) {
 //     // selectTag = nextActiveBtn.dataset.value;
 
 // }
+
+document.querySelector('.gallery__image').onclick = () => {
+  paletteContainer
+    .create(
+      `
+		<img width="1400" height="900" src="https://placehold.it/1400x900">
+	`
+    )
+    .show();
+};
