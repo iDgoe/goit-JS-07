@@ -26,3 +26,5 @@ var lightbox = new SimpleLightbox('.gallery a', {
   captionPosition: 'buttom',
   captionDelay: 250,
 });
+
+console.dir(lightbox);
