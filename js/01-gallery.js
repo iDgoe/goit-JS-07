@@ -9,7 +9,7 @@ const cardsMarkup = createCards(galleryItems);
 console.log(cardsMarkup);
 
 paletteContainer.insertAdjacentHTML('afterbegin', cardsMarkup);
-paletteContainer.addEventListener('click', onClick);
+paletteContainer.addEventListener('click', imgClick);
 
 // function onContainerClick(evt) {
 //   console.log(evt.target);
@@ -21,6 +21,7 @@ function createCards(galleryItems) {
       return `<li  class="gallery__item">
             <a class="gallery__link" href="large-image.jpg">
                 <img
+                loading="lazy"
                     class="gallery__image"
                     src="${preview}"
                     data-source="${original}"
@@ -32,43 +33,18 @@ function createCards(galleryItems) {
     .join('');
 }
 
-function onClick(evnt) {
-  console.log(evt.target);
-  evnt.preventDefault();
-  if (evnt.target.nodeName !== 'IMG') return;
-
-  const thisImg = evnt.target.classList.contains('.gallery__image');
-  if (!thisImg) return;
-
-  const currentImgUrl = e.target.dataset.source;
-}
-
-// const instance = basicLightbox.create(
-//   `
-// 		<img src="${original}" width="1280" height="auto"/>
-//         `
-//   {
-//     onShow: instance => {
-//       window.addEventListener('keydown', onEscPress);
-//     },
-//     onClose: instance => {
-//       window.removeEventListener('keydown', onEscPress);
-//     },
-//   }
-// );
-
-// instance.show();
-
-// function onEscPress(evnt) {
-//   const ESC_KEY = 'Escape';
-//   const isEscKey = evnt.code === ESC_KEY;
-//   if (!isEscKey) return;
-//   instance.close();
-// }
-// }
-
-// }
-// ++++++++++++++++++++++++++++++++++++++++=
+const instance = basicLightbox.create(
+  `
+<img width="1280" height="auto" src="">`,
+  {
+    onShow: instance => {
+      window.addEventListener('keydown', escPress);
+    },
+    onClose: instance => {
+      window.removeEventListener('keydown', escPress);
+    },
+  }
+);
 
 // const x1 = document.querySelector('.');
 // let selectTag = null;
@@ -89,18 +65,82 @@ function onClick(evnt) {
 //     findActiveEl.classList.remove('gallery__link');
 //   }
 
-//   const nextActiveBtn = evnt.target;
-//     nextActiveBtn.target.classlist.add('gallery__link');
-//     // selectTag = nextActiveBtn.dataset.value;
+function imgClick(evt) {
+  evt.preventDefault();
+  const dataset = evt.target.dataset.source;
+  if (!dataset) return;
+  instance.element().querySelector('img').src = dataset;
+  instance.show();
+}
 
+function escPress(el) {
+  if (el.code !== 'Escape') return;
+  instance.close();
+}
+
+// function onClick(evnt) {
+//   console.log(evt.target);
+//   evnt.preventDefault();
+//   if (evnt.target.nodeName !== 'IMG') return;
+
+//   const thisImg = evnt.target.classList.contains('.gallery__image');
+//   if (!thisImg) return;
+
+//   const currentImgUrl = e.target.dataset.source;
 // }
 
-document.querySelector('.gallery__image').onclick = () => {
-  paletteContainer
-    .create(
-      `
-		<img width="1400" height="900" src="https://placehold.it/1400x900">
-	`
-    )
-    .show();
-};
+// // const instance = basicLightbox.create(
+// //   `
+// // 		<img src="${original}" width="1280" height="auto"/>
+// //         `
+// //   {
+// //     onShow: instance => {
+// //       window.addEventListener('keydown', onEscPress);
+// //     },
+// //     onClose: instance => {
+// //       window.removeEventListener('keydown', onEscPress);
+// //     },
+// //   }
+// // );
+
+// // instance.show();
+
+// // }
+// // ++++++++++++++++++++++++++++++++++++++++=
+
+// //   const nextActiveBtn = evnt.target;
+// //     nextActiveBtn.target.classlist.add('gallery__link');
+// //     // selectTag = nextActiveBtn.dataset.value;
+
+// // }
+
+// document.querySelector('.gallery__image').onclick = () => {
+//   paletteContainer
+//     .create(
+//       `
+// 		<img width="1400" height="900" src="https://placehold.it/1400x900">
+// 	`
+//     )
+//     .show();
+// };
+
+// import { galleryItems } from './gallery-items.js';
+
+// ...............cardsMarkup....................
+// rendered items
+// function createGalleryItemsMarkup(items) {
+//   return items
+//     .map(({ preview, original, description }) => {
+//       return `<div class="gallery__item">
+//   <a class="gallery__link" href="${original}">
+//     <img
+//       class="gallery__image"
+//       src="${preview}"
+//       data-source="${original}"
+//       alt="${description}"
+//     />
+//   </a>
+// </div>`;
+//     })
+//     .join('');
+// }
