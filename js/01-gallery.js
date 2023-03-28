@@ -15,8 +15,8 @@ paletteContainer.addEventListener('click', imgClick);
 //   console.log(evt.target);
 // }
 
-function createCards(galleryItems) {
-  return galleryItems
+function createCards(el) {
+  return el
     .map(({ preview, original, description }) => {
       return `<li  class="gallery__item">
             <a class="gallery__link" href="large-image.jpg">
@@ -40,11 +40,23 @@ const instance = basicLightbox.create(
     onShow: instance => {
       window.addEventListener('keydown', escPress);
     },
-    onClose: instance => {
-      window.removeEventListener('keydown', escPress);
-    },
   }
 );
+
+function escPress(el) {
+  if (el.code !== 'Escape') return;
+  instance.close();
+}
+
+function imgClick(evt) {
+  evt.preventDefault();
+  const dataset = evt.target.dataset.source;
+  if (!dataset) return;
+  instance.element().querySelector('img').src = dataset;
+  instance.show();
+}
+
+
 
 // const x1 = document.querySelector('.');
 // let selectTag = null;
@@ -65,18 +77,9 @@ const instance = basicLightbox.create(
 //     findActiveEl.classList.remove('gallery__link');
 //   }
 
-function imgClick(evt) {
-  evt.preventDefault();
-  const dataset = evt.target.dataset.source;
-  if (!dataset) return;
-  instance.element().querySelector('img').src = dataset;
-  instance.show();
-}
 
-function escPress(el) {
-  if (el.code !== 'Escape') return;
-  instance.close();
-}
+
+// if (el.code !== 'Escape') return;
 
 // function onClick(evnt) {
 //   console.log(evt.target);
