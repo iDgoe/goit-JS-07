@@ -33,30 +33,42 @@ function createCards(el) {
     .join('');
 }
 
-const instance = basicLightbox.create(
-  `
-<img width="1280" height="auto" src="">`,
-  {
-    onShow: instance => {
-      window.addEventListener('keydown', escPress);
-    },
-  }
-);
-
-function escPress(el) {
-  if (el.code !== 'Escape') return;
-  instance.close();
-}
-
-function imgClick(evt) {
+const imgClick = evt => {
   evt.preventDefault();
-  const dataset = evt.target.dataset.source;
-  if (!dataset) return;
-  instance.element().querySelector('img').src = dataset;
+
+  if (!e.target.nodeName !== 'IMG') return;
+
+  const imSelect = e.target.getAttribute('data-source');
+
+  const instance = basicLightbox.create(
+    `
+<img width="1280" height="auto" src="">`
+  );
   instance.show();
-}
+};
 
+// const instance = basicLightbox.create(
+//   `
+// <img width="1280" height="auto" src="">`,
+//   {
+//     onShow: instance => {
+//       window.addEventListener('keydown', escPress);
+//     },
+//   }
+// );
 
+// function escPress(el) {
+//   if (el.code !== 'Escape') return;
+//   instance.close();
+// }
+
+// function imgClick(evt) {
+//   evt.preventDefault();
+//   const dataset = evt.target.dataset.source;
+//   if (!dataset) return;
+//   instance.element().querySelector('img').src = dataset;
+//   instance.show();
+// }
 
 // const x1 = document.querySelector('.');
 // let selectTag = null;
@@ -76,8 +88,6 @@ function imgClick(evt) {
 //   if (findActiveEl) {
 //     findActiveEl.classList.remove('gallery__link');
 //   }
-
-
 
 // if (el.code !== 'Escape') return;
 
