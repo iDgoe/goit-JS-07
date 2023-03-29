@@ -34,7 +34,7 @@ function createCards(el) {
 const imgClick = evt => {
   evt.preventDefault();
 
-  if (!evt.target.nodeName !== 'IMG') {
+  if (evt.target.nodeName !== 'IMG') {
     return;
   }
 
