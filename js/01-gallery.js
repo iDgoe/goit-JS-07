@@ -9,7 +9,6 @@ const cardsMarkup = createCards(galleryItems);
 console.log(cardsMarkup);
 
 paletteContainer.insertAdjacentHTML('afterbegin', cardsMarkup);
-paletteContainer.addEventListener('click', imgClick);
 
 // function onContainerClick(evt) {
 //   console.log(evt.target);
@@ -42,10 +41,12 @@ const imgClick = evt => {
 
   const instance = basicLightbox.create(
     `
-<img width="1280" height="auto" src="">`
+<img width="1280" height="auto" src="${imSelect}">`
   );
   instance.show();
 };
+
+paletteContainer.addEventListener('click', imgClick);
 
 // const instance = basicLightbox.create(
 //   `
