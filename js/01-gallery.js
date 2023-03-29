@@ -35,9 +35,9 @@ function createCards(el) {
 const imgClick = evt => {
   evt.preventDefault();
 
-  if (!e.target.nodeName !== 'IMG') return;
+  if (!evt.target.nodeName !== 'IMG') return;
 
-  const imSelect = e.target.getAttribute('data-source');
+  const imSelect = evt.target.getAttribute('data-source');
 
   const instance = basicLightbox.create(
     `
