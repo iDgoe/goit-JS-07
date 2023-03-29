@@ -18,9 +18,8 @@ function createCards(el) {
   return el
     .map(({ preview, original, description }) => {
       return `<li  class="gallery__item">
-            <a class="gallery__link" href="large-image.jpg">
-                <img
-                loading="lazy"
+            <a class="gallery__link" href="${original}">
+                <img 
                     class="gallery__image"
                     src="${preview}"
                     data-source="${original}"
@@ -35,7 +34,9 @@ function createCards(el) {
 const imgClick = evt => {
   evt.preventDefault();
 
-  if (!evt.target.nodeName !== 'IMG') return;
+  if (!evt.target.nodeName !== 'IMG') {
+    return;
+  }
 
   const imSelect = evt.target.getAttribute('data-source');
 
